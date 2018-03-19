@@ -1,6 +1,5 @@
 <link id='favicon' href='favicon.jpg' rel='icon' type='image/jpg'>
 <script>
-console.log("hello")
 
 /*
 
@@ -53,16 +52,16 @@ let PI = 3.14159265358979323846 /* Assume not near black hole */
 
 function sgn(x) {return (((x) < 0) ? -1 : ((x) > 0 ? 1 : 0))} /* Extract sign */
 function abs(x) {return ((x) < 0 ? (-(x)) : (x))}             /* Absolute val */
-function fixangle(a) {return ((a) - 360.0 * (Math.floor((a) / 360.0} /* Fix angle    */
+function fixangle(a) {return ((a) - 360.0 * (Math.floor((a) / 360.0)))} /* Fix angle    */
 function torad(d) {return ((d) * (PI / 180.0))}               /* Deg->Rad     */
 function todeg(d) {return ((d) * (180.0 / PI))}               /* Rad->Deg     */
 function dsin(x) {return (Math.sin(torad((x))))}              /* Sin from deg */
 function dcos(x) {return (cos(torad((x))))}                   /* Cos from deg */
 
-let testmode = FALSE;                 /* Rapid warp through time for debugging */
-let runmode = TRUE;                   /* Update time if true */
+let testmode = false;                 /* Rapid warp through time for debugging */
+let runmode =  true;                   /* Update time if true */
 let faketime = 0.0;                /* Time increment for test mode */
-let color_mode = FALSE;        /* Indicates color/mono mode */
+let color_mode = false;        /* Indicates color/mono mode */
 let nptime = 0.0;           /* Next new moon time */
 // TIME_ZONE_INFORMATION tzInfo;		  // Time zone information
 
@@ -141,7 +140,7 @@ let nptime = 0.0;           /* Next new moon time */
 // 									(((c) | ((c) << 4))) & (~mask); \
 // 						}
 
-// 				if ((color_mode == TRUE) && ((ph < 0.01) || (ph > 0.99))) {
+// 				if ((color_mode ==  true) && ((ph < 0.01) || (ph > 0.99))) {
 // 					memset(((LPSTR) ib) + (ib->biSize + bp * sizeof(RGBQUAD)), 0, is);
 // 				} else {
 // 					xscale = cos(2 * PI * ph);
@@ -191,7 +190,7 @@ let nptime = 0.0;           /* Next new moon time */
 // 						  ((LPCSTR) ib) + (ib->biSize + bp * sizeof(RGBQUAD)),
 // 						  (LPBITMAPINFO) ib, DIB_RGB_COLORS);
 
-// 				ici.fIcon = TRUE;
+// 				ici.fIcon =  true;
 // 				ici.xHotspot = ici.yHotspot = 0;
 // 				ici.hbmMask = bm1;
 // 				ici.hbmColor = bm2;
@@ -250,7 +249,7 @@ let nptime = 0.0;           /* Next new moon time */
 //         SetPixel(hMemoryDC, 41, 29, RGB(255, 0, 0));
 //     }
 
-//     if ((color_mode == TRUE) && ((ph < 0.01) || (ph > 0.99))) {
+//     if ((color_mode ==  true) && ((ph < 0.01) || (ph > 0.99))) {
 //         return;
 //     }
 
@@ -336,7 +335,7 @@ let nptime = 0.0;           /* Next new moon time */
 // 	LONG currentBias;
 
 // 	if ((short) (ut->wYear) < 1601) {
-// 		return FALSE;
+// 		return false;
 // 	}
 
 // 	tz = *itz;
@@ -448,12 +447,12 @@ let nptime = 0.0;           /* Next new moon time */
 // 		the date before the start of the epoch.  */
 
 // 	if (q_now < 0) {
-// 		return FALSE;
+// 		return false;
 // 	}		
 // 	memcpy(&now, &q_now, sizeof now);
 // 	FileTimeToSystemTime(&now, lt);
 
-// 	return TRUE;
+// 	return  true;
 // }
 
 // /*  RINGGG  --  Update  status  on  interval  timer  ticks  and redraw
@@ -506,7 +505,8 @@ let nptime = 0.0;           /* Next new moon time */
 //         jyear(jd, &yy, &mm, &dd);
 //     } else {
 //         if (runmode) {
-// 			set_tm_time(&gm, FALSE);
+// 			set_tm_time(&gm, false
+// );
 // 			faketime = jd = jtime(&gm);
 //             mm = gm.tm_mon + 1;
 //             dd = gm.tm_mday;
@@ -601,7 +601,7 @@ let nptime = 0.0;           /* Next new moon time */
 // 			}
 // 		}
 //     } else {
-// 		set_tm_time(&gm, TRUE);
+// 		set_tm_time(&gm,  true);
 
 //         /* Local time */
 
@@ -739,102 +739,104 @@ let nptime = 0.0;           /* Next new moon time */
 			   Julian time (i.e. Julian date plus day fraction,
 			   expressed as a double).  */
 
-double jtime(struct tm *t)
-{
-    return ucttoj(t->tm_year + 1900, t->tm_mon, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
-}
+// double jtime(struct tm *t)
+// {
+//     return ucttoj(t->tm_year + 1900, t->tm_mon, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
+// }
 
 /*  UCTTOJ  --	Convert GMT date and time to astronomical
 				Julian time (i.e. Julian date plus day fraction,
 				expressed as a double).  */
 
-double ucttoj(long year, int mon, int mday,
-	      	  int hour, int min, int sec)
+// double ucttoj(long year, int mon, int mday,
+// 	      	  int hour, int min, int sec)
+// {
+
+// 	// Algorithm as given in Meeus, Astronomical Algorithms, Chapter 7, page 61
+
+// 	int a, b, m;
+// 	long y;
+
+// #ifdef PARANOID
+//     assert(mon  >= 0 && mon  < 12);
+//     assert(mday >  0 && mday < 32);
+//     assert(hour >= 0 && hour < 24);
+//     assert(min  >= 0 && min  < 60);
+//     assert(sec  >= 0 && sec  < 60);
+// #endif
+
+//     m = mon + 1;
+//     y = year;
+
+// 	if (m <= 2) {
+// 		y--;
+// 		m += 12;
+// 	}
+
+// 	 Determine whether date is in Julian or Gregorian calendar based on
+// 	   canonical date of calendar reform. 
+
+// 	if ((year < 1582) || ((year == 1582) && ((mon < 9) || (mon == 9 && mday < 5)))) {
+// 		b = 0;
+// 	} else {
+// 		a = ((int) (y / 100));
+// 		b = 2 - a + (a / 4);
+// 	}
+
+// 	return (((long) (365.25 * (y + 4716))) + ((int) (30.6001 * (m + 1))) +
+// 				mday + b - 1524.5) +
+// 			((sec + 60L * (min + 60L * hour)) / 86400.0);
+// }
+
+// /*  JYEAR  --  Convert	Julian	date  to  year,  month, day, which are
+// 			   returned via integer pointers to integers (note that year is a long).  */
+
+function jyear(td)
 {
-
-	// Algorithm as given in Meeus, Astronomical Algorithms, Chapter 7, page 61
-
-	int a, b, m;
-	long y;
-
-#ifdef PARANOID
-    assert(mon  >= 0 && mon  < 12);
-    assert(mday >  0 && mday < 32);
-    assert(hour >= 0 && hour < 24);
-    assert(min  >= 0 && min  < 60);
-    assert(sec  >= 0 && sec  < 60);
-#endif
-
-    m = mon + 1;
-    y = year;
-
-	if (m <= 2) {
-		y--;
-		m += 12;
-	}
-
-	/* Determine whether date is in Julian or Gregorian calendar based on
-	   canonical date of calendar reform. */
-
-	if ((year < 1582) || ((year == 1582) && ((mon < 9) || (mon == 9 && mday < 5)))) {
-		b = 0;
-	} else {
-		a = ((int) (y / 100));
-		b = 2 - a + (a / 4);
-	}
-
-	return (((long) (365.25 * (y + 4716))) + ((int) (30.6001 * (m + 1))) +
-				mday + b - 1524.5) +
-			((sec + 60L * (min + 60L * hour)) / 86400.0);
-}
-
-/*  JYEAR  --  Convert	Julian	date  to  year,  month, day, which are
-			   returned via integer pointers to integers (note that year is a long).  */
-
-void jyear(double td, long *yy, int *mm, int *dd)
-{
-	double z, f, a, alpha, b, c, d, e;
+	var z, f, a, alpha, b, c, d, e;
 
 	td += 0.5;
-	z = floor(td);
+	z = Math.floor(td);
 	f = td - z;
 
 	if (z < 2299161.0) {
 		a = z;
 	} else {
-		alpha = floor((z - 1867216.25) / 36524.25);
-		a = z + 1 + alpha - floor(alpha / 4);
+		alpha = Math.floor((z - 1867216.25) / 36524.25);
+		a = z + 1 + alpha - Math.floor(alpha / 4);
 	}
 
 	b = a + 1524;
-	c = floor((b - 122.1) / 365.25);
-	d = floor(365.25 * c);
-	e = floor((b - d) / 30.6001);
+	c = Math.floor((b - 122.1) / 365.25);
+	d = Math.floor(365.25 * c);
+	e = Math.floor((b - d) / 30.6001);
 
-	*dd = (int) (b - d - floor(30.6001 * e) + f);
-	*mm = (int) ((e < 14) ? (e - 1) : (e - 13));
-	*yy = (long) ((*mm > 2) ? (c - 4716) : (c - 4715));
+	let dd = (b - d - Math.floor(30.6001 * e) + f);
+	let mm = ((e < 14) ? (e - 1) : (e - 13));
+	let yy = ((mm > 2) ? (c - 4716) : (c - 4715));
+    // console.log('jyear', td, yy, mm, dd)
+	return [yy, mm, dd]
 }
 
-/*  JHMS  --  Convert Julian time to hour, minutes, and seconds.  */
+// /*  JHMS  --  Convert Julian time to hour, minutes, and seconds.  */
 
-void jhms(double j, int *h, int *m, int *s)
-{
-    long ij;
+// void jhms(double j, int *h, int *m, int *s)
+// {
+//     long ij;
 
-    j += 0.5;			      /* Astronomical to civil */
-    ij = (long) (((j - floor(j)) * 86400.0) + 0.5);  // Round to nearest second
-    *h = (int) (ij / 3600L);
-    *m = (int) ((ij / 60L) % 60L);
-    *s = (int) (ij % 60L);
-}
+//     j += 0.5;			      /* Astronomical to civil */
+//     ij = (long) (((j - floor(j)) * 86400.0) + 0.5);  // Round to nearest second
+//     *h = (int) (ij / 3600L);
+//     *m = (int) ((ij / 60L) % 60L);
+//     *s = (int) (ij % 60L);
+// }
 
-/*	JWDAY  --  Determine day of the week for a given Julian day.  */
+// /*	JWDAY  --  Determine day of the week for a given Julian day.  */
 
-int jwday(double j)
-{
-	return ((int) (j + 1.5)) % 7;
-}
+// int jwday(double j)
+// {
+// 	return ((int) (j + 1.5)) % 7;
+// }
 
 /*  MEANPHASE  --  Calculates  time  of  the mean new Moon for a given
                    base date.  This argument K to this function is the
@@ -844,9 +846,9 @@ int jwday(double j)
 
                    where year is expressed as a year and fractional year.  */
 
-static double meanphase(double sdate, double k)
+function meanphase(sdate, k)
 {
-    double t, t2, t3, nt1;
+    var t, t2, t3, nt1;
 
     /* Time in Julian centuries from 1900 January 0.5 */
     t = (sdate - 2415020.0) / 36525;
@@ -865,10 +867,11 @@ static double meanphase(double sdate, double k)
                    the new moon, and a phase selector (0.0, 0.25, 0.5,
                    0.75), obtain the true, corrected phase time.  */
 
-static double truephase(double k, double phase)
+function truephase(k, phase)
 {
-    double t, t2, t3, pt, m, mprime, f;
-    int apcor = FALSE;
+    var t, t2, t3, pt, m, mprime, f;
+    var apcor = false
+   ;
 
     k += phase;                       /* Add phase to new moon time */
     t = k / 1236.85;                  /* Time in Julian centuries from
@@ -910,7 +913,7 @@ static double truephase(double k, double phase)
                 - 0.0006 * dsin(2 * f + mprime)
                 + 0.0010 * dsin(2 * f - mprime)
                 + 0.0005 * dsin(m + 2 * mprime);
-       apcor = TRUE;
+       apcor =  true;
     } else if ((abs(phase - 0.25) < 0.01 || (abs(phase - 0.75) < 0.01))) {
        pt +=     (0.1721 - 0.0004 * t) * dsin(m)
                 + 0.0021 * dsin(2 * m)
@@ -933,7 +936,7 @@ static double truephase(double k, double phase)
        else
           /* Last quarter correction */
           pt += -0.0028 + 0.0004 * dcos(m) - 0.0003 * dcos(mprime);
-       apcor = TRUE;
+       apcor =  true;
     }
     if (!apcor) {
         MessageBox(hWndMain, rstring(IDS_ERR_TRUEPHASE),
@@ -948,18 +951,18 @@ static double truephase(double k, double phase)
                     ending with the new moons which bound the  current
                     lunation.  */
 
-void phasehunt(double sdate, double phases[5])
+function phasehunt(sdate, phases)
 {
-    double adate, k1, k2, nt1, nt2;
-    int yy, mm, dd;
+    var adate, k1, k2, nt1, nt2;
+    var yy, mm, dd;
 
     adate = sdate - 45;
 
-    jyear(adate, &yy, &mm, &dd);
-    k1 = floor((yy + ((mm - 1) * (1.0 / 12.0)) - 1900) * 12.3685);
+    [yy,mm,dd]=jyear(adate);
+    k1 = Math.floor((yy + ((mm - 1) * (1.0 / 12.0)) - 1900) * 12.3685);
 
     adate = nt1 = meanphase(adate, k1);
-    while (TRUE) {
+    while ( true) {
         adate += synmonth;
         k2 = k1 + 1;
         nt2 = meanphase(adate, k2);
@@ -977,16 +980,16 @@ void phasehunt(double sdate, double phases[5])
 
 /*  KEPLER  --   Solve the equation of Kepler.  */
 
-static double kepler(double m, double ecc)
+function kepler(m, ecc)
 {
-    double e, delta;
-#define EPSILON 1E-6
+    var e, delta;
+	let EPSILON = 1e-6
 
     e = m = torad(m);
     do {
-        delta = e - ecc * sin(e) - m;
-        e -= delta / (1 - ecc * cos(e));
-    } while (abs(delta) > EPSILON);
+        delta = e - ecc * Math.sin(e) - m;
+        e -= delta / (1 - ecc * Math.cos(e));
+    } while (Math.abs(delta) > EPSILON);
     return e;
 }
 
@@ -1002,17 +1005,10 @@ static double kepler(double m, double ecc)
     Earth.
 */
 
-double phase(
-  double  pdate,                      /* Date for which to calculate phase */
-  double  *pphase,                    /* Illuminated fraction */
-  double  *mage,                      /* Age of moon in days */
-  double  *dist,                      /* Distance in kilometres */
-  double  *angdia,                    /* Angular diameter in degrees */
-  double  *sudist,                    /* Distance to Sun */
-  double  *suangdia)                  /* Sun's angular diameter */
+function phase(pdate)                      /* Date for which to calculate phase */
 {
 
-    double Day, N, M, Ec, Lambdasun, ml, MM, MN, Ev, Ae, A3, MmP,
+    var Day, N, M, Ec, Lambdasun, ml, MM, MN, Ev, Ae, A3, MmP,
            mEc, A4, lP, V, lPP, NP, y, x, Lambdamoon, BetaM,
            MoonAge, MoonPhase,
            MoonDist, MoonDFrac, MoonAng, MoonPar,
@@ -1025,12 +1021,12 @@ double phase(
     M = fixangle(N + elonge - elongp);      /* Convert from perigee
                                                co-ordinates to epoch 1980.0 */
     Ec = kepler(M, eccent);                 /* Solve equation of Kepler */
-    Ec = sqrt((1 + eccent) / (1 - eccent)) * tan(Ec / 2);
-    Ec = 2 * todeg(atan(Ec));               /* True anomaly */
+    Ec = Math.sqrt((1 + eccent) / (1 - eccent)) * Math.tan(Ec / 2);
+    Ec = 2 * todeg(Math.atan(Ec));               /* True anomaly */
     Lambdasun = fixangle(Ec + elongp);      /* Sun's geocentric ecliptic
                                                longitude */
     /* Orbital distance factor */
-    F = ((1 + eccent * cos(torad(Ec))) / (1 - eccent * eccent));
+    F = ((1 + eccent * Math.cos(torad(Ec))) / (1 - eccent * eccent));
     SunDist = sunsmax / F;                  /* Distance to Sun in km */
     SunAng = F * sunangsiz;                 /* Sun's angular size in degrees */
 
@@ -1046,47 +1042,47 @@ double phase(
     MN = fixangle(mlnode - 0.0529539 * Day);
 
     /* Evection */
-    Ev = 1.2739 * sin(torad(2 * (ml - Lambdasun) - MM));
+    Ev = 1.2739 * Math.sin(torad(2 * (ml - Lambdasun) - MM));
 
     /* Annual equation */
-    Ae = 0.1858 * sin(torad(M));
+    Ae = 0.1858 * Math.sin(torad(M));
 
     /* Correction term */
-    A3 = 0.37 * sin(torad(M));
+    A3 = 0.37 * Math.sin(torad(M));
 
     /* Corrected anomaly */
     MmP = MM + Ev - Ae - A3;
 
     /* Correction for the equation of the centre */
-    mEc = 6.2886 * sin(torad(MmP));
+    mEc = 6.2886 * Math.sin(torad(MmP));
 
     /* Another correction term */
-    A4 = 0.214 * sin(torad(2 * MmP));
+    A4 = 0.214 * Math.sin(torad(2 * MmP));
 
     /* Corrected longitude */
     lP = ml + Ev + mEc - Ae + A4;
 
     /* Variation */
-    V = 0.6583 * sin(torad(2 * (lP - Lambdasun)));
+    V = 0.6583 * Math.sin(torad(2 * (lP - Lambdasun)));
 
     /* True longitude */
     lPP = lP + V;
 
     /* Corrected longitude of the node */
-    NP = MN - 0.16 * sin(torad(M));
+    NP = MN - 0.16 * Math.sin(torad(M));
 
     /* Y inclination coordinate */
-    y = sin(torad(lPP - NP)) * cos(torad(minc));
+    y = Math.sin(torad(lPP - NP)) * Math.cos(torad(minc));
 
     /* X inclination coordinate */
-    x = cos(torad(lPP - NP));
+    x = Math.cos(torad(lPP - NP));
 
     /* Ecliptic longitude */
-    Lambdamoon = todeg(atan2(y, x));
+    Lambdamoon = todeg(Math.atan2(y, x));
     Lambdamoon += NP;
 
     /* Ecliptic latitude */
-    BetaM = todeg(asin(sin(torad(lPP - NP)) * sin(torad(minc))));
+    BetaM = todeg(Math.asin(Math.sin(torad(lPP - NP)) * Math.sin(torad(minc))));
 
     /* Calculation of the phase of the Moon */
 
@@ -1094,12 +1090,12 @@ double phase(
     MoonAge = lPP - Lambdasun;
 
     /* Phase of the Moon */
-    MoonPhase = (1 - cos(torad(MoonAge))) / 2;
+    MoonPhase = (1 - Math.cos(torad(MoonAge))) / 2;
 
     /* Calculate distance of moon from the centre of the Earth */
 
     MoonDist = (msmax * (1 - mecc * mecc)) /
-               (1 + mecc * cos(torad(MmP + mEc)));
+               (1 + mecc * Math.cos(torad(MmP + mEc)));
 
     /* Calculate Moon's angular diameter */
 
@@ -1110,15 +1106,22 @@ double phase(
 
     MoonPar = mparallax / MoonDFrac;
 
-    *pphase = MoonPhase;
-    *mage = synmonth * (fixangle(MoonAge) / 360.0);
-    *dist = MoonDist;
-    *angdia = MoonAng;
-    *sudist = SunDist;
-    *suangdia = SunAng;
-    return fixangle(MoonAge) / 360.0;
+    return {
+        pphase: MoonPhase,
+        mage: synmonth * (fixangle(MoonAge) / 360.0),
+        dist: MoonDist,
+        angdia: MoonAng,
+        sudist: SunDist,
+        suangdia: SunAng,
+        phase: fixangle(MoonAge) / 360.0
+    }
 }
 
-
+// debugger
+today = epoch + (Date.parse("2018")-Date.parse("1980"))/1000/60/60/24
+for (var day=0; day<366; day++){
+    [yy,mm,dd] = jyear(today+day)
+    console.log('phase',yy,mm,Math.floor(dd),phase(today+day).phase)
+}
 
 </script>
