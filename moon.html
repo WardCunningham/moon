@@ -1117,11 +1117,73 @@ function phase(pdate)                      /* Date for which to calculate phase 
     }
 }
 
-// debugger
-today = epoch + (Date.parse("2018")-Date.parse("1980"))/1000/60/60/24
-for (var day=0; day<366; day++){
-    [yy,mm,dd] = jyear(today+day)
-    console.log('phase',yy,mm,Math.floor(dd),phase(today+day).phase)
+// https://www.calendar-12.com/moon_phases/2018
+// phase | pacific date | time | utc date | time
+
+testdata = [
+"Full Moon|January 1|06:25 PM|January 2|02:25 AM",
+"Last Quarter|January 8|02:26 PM|January 8|10:26 PM",
+"New Moon|January 16|06:18 PM|January 17|02:18 AM",
+"First Quarter|January 24|02:20 PM|January 24|10:20 PM",
+"Full Moon|January 31|05:27 AM|January 31|01:27 PM",
+"Last Quarter|February 7|07:55 AM|February 7|03:55 PM",
+"New Moon|February 15|01:06 PM|February 15|09:06 PM",
+"First Quarter|February 23|12:09 AM|February 23|08:09 AM",
+"Full Moon|March 1|04:52 PM|March 2|12:52 AM",
+"Last Quarter|March 9|03:22 AM|March 9|11:22 AM",
+"New Moon|March 17|06:14 AM|March 17|01:14 PM",
+"First Quarter|March 24|08:35 AM|March 24|03:35 PM",
+"Full Moon|March 31|05:37 AM|March 31|12:37 PM",
+"Last Quarter|April 8|12:21 AM|April 8|07:21 AM",
+"New Moon|April 15|06:59 PM|April 16|01:59 AM",
+"First Quarter|April 22|02:46 PM|April 22|09:46 PM",
+"Full Moon|April 29|05:59 PM|April 30|12:59 AM",
+"Last Quarter|May 7|07:11 PM|May 8|02:11 AM",
+"New Moon|May 15|04:49 AM|May 15|11:49 AM",
+"First Quarter|May 21|08:50 PM|May 22|03:50 AM",
+"Full Moon|May 29|07:20 AM|May 29|02:20 PM",
+"Last Quarter|June 6|11:34 AM|June 6|06:34 PM",
+"New Moon|June 13|12:45 PM|June 13|07:45 PM",
+"First Quarter|June 20|03:52 AM|June 20|10:52 AM",
+"Full Moon|June 27|09:54 PM|June 28|04:54 AM",
+"Last Quarter|July 6|12:52 AM|July 6|07:52 AM",
+"New Moon|July 12|07:49 PM|July 13|02:49 AM",
+"First Quarter|July 19|12:53 PM|July 19|07:53 PM",
+"Full Moon|July 27|01:22 PM|July 27|08:22 PM",
+"Last Quarter|August 4|11:19 AM|August 4|06:19 PM",
+"New Moon|August 11|02:59 AM|August 11|09:59 AM",
+"First Quarter|August 18|12:49 AM|August 18|07:49 AM",
+"Full Moon|August 26|04:58 AM|August 26|11:58 AM",
+"Last Quarter|September 2|07:39 PM|September 3|02:39 AM",
+"New Moon|September 9|11:02 AM|September 9|06:02 PM",
+"First Quarter|September 16|04:16 PM|September 16|11:16 PM",
+"Full Moon|September 24|07:54 PM|September 25|02:54 AM",
+"Last Quarter|October 2|02:47 AM|October 2|09:47 AM",
+"New Moon|October 8|08:47 PM|October 9|03:47 AM",
+"First Quarter|October 16|11:02 AM|October 16|06:02 PM",
+"Full Moon|October 24|09:47 AM|October 24|04:47 PM",
+"Last Quarter|October 31|09:42 AM|October 31|04:42 PM",
+"New Moon|November 7|08:02 AM|November 7|04:02 PM",
+"First Quarter|November 15|06:54 AM|November 15|02:54 PM",
+"Full Moon|November 22|09:41 PM|November 23|05:41 AM",
+"Last Quarter|November 29|04:21 PM|November 30|12:21 AM",
+"New Moon|December 6|11:21 PM|December 7|07:21 AM",
+"First Quarter|December 15|03:49 AM|December 15|11:49 AM",
+"Full Moon|December 22|09:50 AM|December 22|05:50 PM",
+"Last Quarter|December 29|01:36 AM|December 29|09:36 AM",
+]
+
+for (var line of testdata) {
+    var m = line.split("|")
+    var d = Date.parse(m[1]+", 2018, "+m[2])
+    var jd = epoch + (d - Date.parse("1980"))/1000/60/60/24
+    var [yy,mm,dd] = jyear(jd)
+    var ddd = Math.floor(dd)
+    var hhh = Math.floor((dd-ddd)*24)
+    var mmm = Math.floor(( ((dd-ddd)*24)-hhh )*60)
+    var p = phase(jd).phase
+    console.log (new Date(d), [yy, mm, ddd], [hhh,mmm], p, m[0])
 }
+
 
 </script>
